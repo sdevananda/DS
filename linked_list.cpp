@@ -1,3 +1,11 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
 #include<iostream>
 using namespace std;
 struct node
@@ -17,6 +25,7 @@ class ll{
     int add(int x);
     int del(int x);
     int traverse();
+    int add_pos(int x, int y);
 };
 
 int ll::add(int x){
@@ -36,29 +45,62 @@ int ll::add(int x){
     return 0;
 }
 
-int ll::del(int x){
-    node *tmp;
-    tmp=head;
-    while(tmp->next->data!=x){
-        tmp=tmp->next;
+int ll::add_pos(int pos, int value)
+  {
+    node *pre=new node;
+    node *cur=new node;
+    node *temp=new node;
+    cur=head;
+    cout<<cur->data;
+    for(int i=1;i<pos;i++)
+    {
+      pre=cur;
+      cur=cur->next;
     }
-    tmp=tmp->next->next;
+    cout<<pre->data<<"pre->data";
+    temp->data=value;
+    cout<<"temp value:"<<temp->data<<endl;
+    pre->next=temp;	
+    temp->next=cur;
+  
+      return 0;
+  }
+  
+int ll::del(int x){
+    node *current=new node;
+    node *previous=new node;
+    current=head;
+  
+    while(current->data!=x){
+        previous=current;
+        current=current->next;
+    }
+    cout<<"previous->next"<<previous->next;
+    cout<<"current->next"<<current->next;
+    
+    previous->next=current->next;
+    delete current;
+    cout<<"previous->next"<<previous->next;
+    
+    
     return 0;
 }
 
 int ll::traverse(){
-    node *tmp;
+    node *tmp=new node;
     tmp=head;
-    while(tmp->next!=NULL){
-        cout<<tmp->data<<endl;
+    while(tmp!=NULL){
+        cout<<tmp->data<<'\t';
         tmp=tmp->next;
     }
+    cout<<head->data;
+    cout<<tail->data;
     return 0;
 }
 
 int main(){
     ll a;
-    int x,y;
+    int x,y,z;
     cout<<"1.add at start"<<endl<<"2.delete an element"<<endl<<"3.travese list"<<endl;
     cin>>x;
     cout<<x;
@@ -75,10 +117,14 @@ int main(){
         else if(x==3){
             a.traverse();
         }
+        else if(x==4){
+            cin>>y>>z;
+            a.add_pos(y,z);
+        }
         else{
             cout<<"wrong input";
         }
-        cout<<"1.add at start"<<endl<<"2.delete an element"<<endl<<"3.travese list"<<endl<<"0:exit"<<endl;
+        cout<<"1.add at start"<<endl<<"2.delete an element"<<endl<<"3.travese list"<<endl<<"3.add at position"<<endl<<"0:exit"<<endl;
         cin>>x;
     }
     return 0;
